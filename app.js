@@ -1,17 +1,5 @@
 'use strict'
 
-window.onload = init; 
-
-function init() {
-    //run the stateSelected()
-    loadteamSelected(teams);
-    const submitForm = document.getElementById('selectForm');
-    submitForm.onchange = function (event) {
-        event.preventDefault();
-        getTeamName();
-    }
-}
-
 let teams = [
     {code:"DAL", name:"Dallas Cowboys", plays:"Arlington, TX"},
     {code:"DEN", name:"Denver Broncos", plays:"Denver, CO"},
@@ -23,10 +11,8 @@ let teams = [
 function loadteamSelected(_teams) {
     
     const selectedTeam = document.getElementById('selectedList');
-
-    selectedTeam.appendChild(new Option("Select A Team", ""))
-    
     let teamsLength = _teams.length;
+
     for (let i = 0; i < teamsLength; i++) {
         // creates the option element and sets the text and value
         let teamOption = new Option(teams[i].name, teams[i].code); 
@@ -53,14 +39,27 @@ function findTeam(_teamList, _code) {
 function getTeamName() {
 
     const selectedTeam = document.getElementById('selectedList').value;
+    const displayInfo = document.getElementById('displayTeamInfo');
 
     const teamList = findTeam(teams, selectedTeam);
  
-    teamList.forEach((item) => {
-        document.getElementById('displayTeamInfo').textContent = 
-        `You selected the ${item.name} (${item.code}) who plays in ${item.plays}` 
+    teamList.forEach((item) => { 
+        displayInfo.innerHTML = `You selected the ${item.name} (${item.code}) who plays in ${item.plays} ` 
     })
 };
+
+window.onload = init; 
+    
+function init() {
+    //run the stateSelected()
+    loadteamSelected(teams);
+
+    const submitForm = document.getElementById('selectForm');
+    submitForm.onsubmit = function (event) {
+        event.preventDefault();
+        getTeamName()
+    }
+}
 
 
 
