@@ -6,7 +6,7 @@ function init() {
     //run the stateSelected()
     loadteamSelected(teams);
     const submitForm = document.getElementById('selectForm');
-    submitForm.onsubmit = function (event) {
+    submitForm.onchange = function (event) {
         event.preventDefault();
         getTeamName();
     }
@@ -23,8 +23,10 @@ let teams = [
 function loadteamSelected(_teams) {
     
     const selectedTeam = document.getElementById('selectedList');
-    let teamsLength = _teams.length;
 
+    selectedTeam.appendChild(new Option("Select A Team", ""))
+    
+    let teamsLength = _teams.length;
     for (let i = 0; i < teamsLength; i++) {
         // creates the option element and sets the text and value
         let teamOption = new Option(teams[i].name, teams[i].code); 
@@ -56,7 +58,7 @@ function getTeamName() {
  
     teamList.forEach((item) => {
         document.getElementById('displayTeamInfo').textContent = 
-        `The team ${item.name} plays for ${item.plays} ${item.code}` 
+        `You selected the ${item.name} (${item.code}) who plays in ${item.plays}` 
     })
 };
 
