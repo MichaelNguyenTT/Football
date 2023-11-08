@@ -40,9 +40,10 @@ function getTeamName() {
 
     const selectedTeam = document.getElementById('selectedList').value;
     const displayInfo = document.getElementById('displayTeamInfo');
-
-    const teamList = findTeam(teams, selectedTeam);
- 
+    // passed the teams array and selectedteam value to the function
+    const teamList = findTeam(teams, selectedTeam); // returns the object in an array that contains selectedteam value
+    
+    // forEach loop to display each 
     teamList.forEach((item) => { 
         displayInfo.innerHTML = `You selected the ${item.name} (${item.code}) who plays in ${item.plays} ` 
     })
@@ -53,6 +54,11 @@ window.onload = init;
 function init() {
     //run the stateSelected()
     loadteamSelected(teams);
+    const onSelectChange = document.getElementById('selectedList');
+    onSelectChange.onchange = function () {
+        const displayInfo = document.getElementById('displayTeamInfo');
+        displayInfo.innerHTML = ''
+    }
 
     const submitForm = document.getElementById('selectForm');
     submitForm.onsubmit = function (event) {
